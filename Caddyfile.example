@@ -1,0 +1,15 @@
+# Replace panel.example.com with a DNS name whose A/AAAA records point to this VPS.
+panel.example.com {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:7777
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy no-referrer
+        X-Frame-Options DENY
+    }
+}
+
+# IP access fallback (HTTP only). Prefer the HTTPS domain for real use.
+:80 {
+    reverse_proxy 127.0.0.1:7777
+}
